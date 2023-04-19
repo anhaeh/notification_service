@@ -5,10 +5,12 @@ from views.subscriptions_view import router as subscriptions_router
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
-
 # TODO move to a config file
 PREFIX = "/notification-service"
+
+app = FastAPI(
+    docs_url=f'{PREFIX}/docs'
+)
 
 
 @app.get("/")
