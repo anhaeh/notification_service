@@ -9,7 +9,8 @@ models.Base.metadata.create_all(bind=engine)
 PREFIX = "/notification-service"
 
 app = FastAPI(
-    docs_url=f'{PREFIX}/docs'
+    docs_url=f'{PREFIX}/docs',
+    openapi_url=f'{PREFIX}/openapi.json'
 )
 
 
