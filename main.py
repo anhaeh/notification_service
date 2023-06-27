@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from notifications import models
-from notifications.database import engine
-from notifications.router import router as subscriptions_router
+from subscriptions import models
+from subscriptions.database import engine
+from subscriptions.router import router as subscriptions_router
 
 models.Base.metadata.create_all(bind=engine)
 
