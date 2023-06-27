@@ -1,9 +1,9 @@
 from fastapi import Depends, HTTPException, APIRouter
-from controllers.notificator import Notificator
-from domain.database import get_db
-from domain.schemas import Notification
+from notifications.notificator import Notificator
+from notifications.database import get_db
+from notifications.schemas import Notification
 from sqlalchemy.orm import Session
-from domain import crud, schemas
+from notifications import crud, schemas
 
 router = APIRouter(prefix="/subscriptions")
 

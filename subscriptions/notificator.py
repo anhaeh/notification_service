@@ -1,7 +1,7 @@
 import httpx
 from sqlalchemy.orm import Session
-from domain.schemas import Notification
-from domain.crud import list_subscriptions
+from notifications.schemas import Notification
+from notifications.crud import list_subscriptions
 
 
 class Notificator:
