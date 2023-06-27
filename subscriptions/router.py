@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter, BackgroundTasks
 from subscriptions.notificator import Notificator
 from subscriptions.database import get_db
 from subscriptions.schemas import Notification
@@ -30,12 +30,10 @@ def delete_subscription(pk: int, db: Session = Depends(get_db)):
 
 
 @router.post("/notify/")
-async def receive_notification(n: Notification, db: Session = Depends(get_db)):
-    print("notify")
+async def receive_notification(n: Notification, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     notificator = Notificator(n, db)
-    subscribers, errors = await notificator.notify_to_subscribers()
+    subscribers = notificator.get_subscribers()
+    background_tasks.add_task(notificator.notify_to_subscribers)
     return {
-        'subscribers': subscribers,
-        'notifications_sent': subscribers - len(errors),
-        'errors': errors
+        'subscribers': len(subscribers)
     }
