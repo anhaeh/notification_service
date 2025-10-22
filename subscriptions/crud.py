@@ -22,7 +22,7 @@ def delete_subscription(db: Session, item: models.Subscription):
 
 
 def create_subscription(db: Session, new: schemas.Subscription):
-    new_item = new.dict()
+    new_item = new.model_dump()
     del new_item['id']
     db_item = models.Subscription(**new_item)
     db.add(db_item)
