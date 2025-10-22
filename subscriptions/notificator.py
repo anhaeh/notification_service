@@ -25,7 +25,7 @@ class Notificator:
         for x in self.__subscribers:
             try:
                 async with httpx.AsyncClient() as client:
-                    await client.post(x.callback_url, json=self.__notification.dict(), timeout=5)
+                    await client.post(x.callback_url, json=self.__notification.model_dump(), timeout=5)
             except Exception as e:
                 errors.append({
                     'exception': repr(e),
