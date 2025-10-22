@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 
 class Subscription(BaseModel):
@@ -8,14 +8,15 @@ class Subscription(BaseModel):
     event: str = '*'
     callback_url: str
 
-    @validator('event')
+    @field_validator('event')
+    @classmethod
     def event_must_not_empty(cls, v):
         if not v:
             raise ValueError('Event must not be empty')
         return v
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Notification(BaseModel):
